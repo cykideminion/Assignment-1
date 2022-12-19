@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "array.prototype.groupbytomap": "^1.1.0",
+    "group-by": "^0.0.1",
+    "lodash.groupby": "^4.6.0"
+  }
+}

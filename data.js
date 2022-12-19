@@ -24,14 +24,13 @@ function transformData(data) {
   const resalePriceList = data.map(function(dataPoint) {
     return {
       "floorarea": dataPoint.floor_area_sqm,
-      "lcomdate": dataPoint.lease_commence_date,
-      "remainLease": dataPoint.remaining_lease,
       "town": dataPoint.town,
       "flatType": dataPoint.flat_type,
       "month": dataPoint.month,
       "resaleprice": dataPoint.resale_price,
       "streetName": dataPoint.street_name,
-      "storeyrange": dataPoint.storey_range
+      "storeyrange": dataPoint.storey_range,
+      "blockNo": dataPoint.block
     }
   })
   console.log("resalePriceList", resalePriceList)
@@ -39,71 +38,58 @@ function transformData(data) {
   //shortlist the data for charts
   const shortlisted = [];
   for (let dataPoint of resalePriceList) {
-    if (dataPoint.flatType == "3 ROOM" && dataPoint.storeyrange == "Lower Floor" & dataPoint.town == "ANG MO KIO") {
+    if (dataPoint.month == "Jan" && dataPoint.flatType == "3 ROOM" && dataPoint.storeyrange == "Lower Floor" && dataPoint.town == "ANG MO KIO") {
       shortlisted.push(dataPoint);
     }
   }
   console.log("shortlisted", shortlisted);
 
-
-  // let newseries = shortlisted.groupBy(shortlisted => {
+  // let newseries = shortlisted.groupBy(shortl  isted => {
   //   return shortlisted.month;
   // });
   // console.log("new series", newseries)
 
+  // const shorlisted2 = [];
+  // for (let dataPoint of shortlisted) {
+  //   const listofprice = dataPoint.resaleprice;
+  //   let monthList = dataPoint.month;
+  //   shorlisted2.push(datapoint)
+  // }
+
+  //to group the shortlisted into months
+  // let shorlistGroup = shortlisted.reduce((months, dataPoint) => {
+  //   months[dataPoint.month] = months[dataPoint.month] || [];
+  //   months[dataPoint.month].push(dataPoint);
+  //   return months;
+  // }, {});
+
+  // console.log("shortlistGroup", shortlistGroup)
+
+  //to group the arrays into Month groups
 
 
-
-  //push the shortlited data into series
+  // push the shortlited data into series
   const series = [];
   for (let dataPoint of shortlisted) {
-    const idresale = dataPoint.floorarea;
-    const listofprice = dataPoint.resaleprice;
-    let monthList = dataPoint.month;
-    console.log(idresale);
-    console.log(listofprice);
-    console.log(monthList)
-
-
+ 
     series.push({
-      x: dataPoint.month,
+      x: dataPoint.streetName,
       y: dataPoint.resaleprice
 
     })
 
-    // grouping into months
-    // let monthListt = {
-    //   "0": [],
-    //   "1": [],
-    //   "2": [],
-    //   "3": [],
-    //   "4": [],
-    //   "5": [],
-    //   "6": [],
-    //   "7": [],
-    //   "8": [],
-    //   "8": [],
-    //   "10": [],
-    //   "11": []
-    // }
+    // to group the shortlisted into months
+    // let series2 = series.reduce((months, dataPoint) => {
+    //   months[dataPoint.x] = months[dataPoint.x] || [];
+    //   months[dataPoint.x].push(dataPoint);
+    //   return months;
+    // }, {});
 
-    // for (let dataPoint of series) {
-    //   const monthIndex = dataPoint.x;
-    //   monthListt[monthIndex].push(dataPoint);
-    // }
-    // console.log(monthList)
+    // console.log("newseries", series2);
+    console.log("Series", series);
 
-    // for (let dataPoint in series) {
-
-    //   if (series.x == monthList)
-    //     newseries.push(dataPoint)
-    // }
-
-    console.log(series);
   }
-
   return series;
-
 
 }
 
@@ -113,7 +99,46 @@ function transformData(data) {
 
 
 
-// add in series 2
+function transformData2(data) {
+  const resalePriceList = data.map(function(dataPoint) {
+    return {
+      "floorarea": dataPoint.floor_area_sqm,
+      "town": dataPoint.town,
+      "flatType": dataPoint.flat_type,
+      "month": dataPoint.month,
+      "resaleprice": dataPoint.resale_price,
+      "streetName": dataPoint.street_name,
+      "storeyrange": dataPoint.storey_range,
+      "blockNo": dataPoint.block
+    }
+  })
+  console.log("resalePriceList", resalePriceList)
+
+  // add in series 2
+  const shortlisted2 = [];
+  for (let dataPoint of resalePriceList) {
+    if (dataPoint.month == "Feb" && dataPoint.flatType == "3 ROOM" && dataPoint.storeyrange == "Lower Floor" && dataPoint.town == "ANG MO KIO") {
+      shortlisted2.push(dataPoint);
+    }
+  }
+  console.log("shortlisted", shortlisted2);
+
+  const series2 = [];
+  for (let dataPoint of shortlisted2) {
+
+    series2.push({
+      x: dataPoint.streetName,
+      y: dataPoint.resaleprice
+
+    })
+    console.log("Series2", series2);
+
+
+  }
+  return series2;
+}
+
+
 
 // function transformData2(data) {
 //   const resalePriceList2 = data.map(function(dataPoint) {
@@ -164,11 +189,3 @@ function transformData(data) {
 //   }
 //   console.log("shortlisted", shortlisted);
 // }
-
-
-
-
-
-
-//   
-
